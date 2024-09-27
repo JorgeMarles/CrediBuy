@@ -31,4 +31,6 @@ class Client(User):
 
 class Employee(User):
     role = models.CharField(max_length=255, null=False)
-    
+
+class Administrator(User):
+    pass
