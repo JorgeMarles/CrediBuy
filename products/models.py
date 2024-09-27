@@ -27,3 +27,8 @@ class User(models.Model):
 class Client(User):
     address = models.CharField(max_length=255, null=False)
     phone = models.CharField(max_length=15, null=False)
+
+
+class Employee(User):
+    role = models.CharField(max_length=255, null=False)
+    
