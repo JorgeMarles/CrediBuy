@@ -1,4 +1,6 @@
 from django.db import models
+from django.core.validators import MinValueValidator
+
 
 # Create your models here.
 class ProductType(models.Model):
@@ -34,3 +36,15 @@ class Employee(User):
 
 class Administrator(User):
     pass
+
+class Product(models.Model):
+    name = models.CharField(max_length=255, null=False)
+    price = models.DecimalField(
+        max_digits=10, decimal_places=2, validators=[MinValueValidator(0.01)]
+    )
+    product_type = models.ForeignKey(ProductType, on_delete=models.CASCADE)
+    description = models.TextField()
+    stock = models.IntegerField(validators=[MinValueValidator(0)])
+
+    def __str__(self) -> str:
+        return self.name
