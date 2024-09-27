@@ -28,7 +28,7 @@ python manage.py runserver
 goto end
 
 :migrate
-python manage.py makemigrations product
+python manage.py makemigrations products
 python manage.py migrate
 goto end
 
