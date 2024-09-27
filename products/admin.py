@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import ProductType, Client, Employee, Administrator
+from .models import ProductType, Client, Employee, Administrator, Product
 
 # Register your models here.
 @admin.register(ProductType)
@@ -22,3 +22,8 @@ class EmployeeAdmin(admin.ModelAdmin):
 class AdministratorAdmin(admin.ModelAdmin):
     list_display = ['id', 'first_name', 'last_name', 'email']
     search_fields = ['first_name', 'last_name', 'email']
+
+@admin.register(Product)
+class ProductAdmin(admin.ModelAdmin):
+    list_display = ['id', 'name', 'price', 'description', 'stock']
+    search_fields = ['name', 'description']
