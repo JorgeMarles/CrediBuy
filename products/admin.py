@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import ProductType, Client, Employee, Administrator, Product, Credit
+from .models import ProductType, Client, Employee, Administrator, Product, Credit, Payment
 
 # Register your models here.
 @admin.register(ProductType)
@@ -41,3 +41,17 @@ class CreditAdmin(admin.ModelAdmin):
     @admin.display(description="Product")
     def get_product(self, obj: Credit) -> str:
         return obj.product.__str__()
+
+@admin.register(Payment)
+class PaymentAdmin(admin.ModelAdmin):
+    list_display = ['id', 'get_client', 'get_product', 'value', 'due_to', 'status', 'value_delayed']
+    search_fields = ['get_client', 'get_product', 'status']
+    list_select_related = ['credit']
+
+    @admin.display(description="Client")
+    def get_client(self, obj: Payment) -> str:
+        return obj.credit.client.__str__()
+    
+    @admin.display(description="Product")
+    def get_product(self, obj: Payment) -> str:
+        return obj.credit.product.__str__()
