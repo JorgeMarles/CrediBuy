@@ -48,3 +48,18 @@ class Product(models.Model):
 
     def __str__(self) -> str:
         return self.name
+
+class Credit(models.Model):
+    STATUSES = {
+        "started": "Started",
+        "in_review": "In review",
+        "rejected": "Rejected",
+        "active": "Active",
+        "completed": "Completed"
+    }
+    client = models.ForeignKey(Client, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    status = models.CharField(max_length=30, choices=STATUSES)
+    debt = models.DecimalField(max_digits=10, decimal_places=2, validators=[MinValueValidator(0.01)])
+    total_payments = models.IntegerField(validators=[MinValueValidator(0)])
