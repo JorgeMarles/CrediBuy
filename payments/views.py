@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 from rest_framework import viewsets
 from rest_framework import generics
 from rest_framework import mixins
@@ -29,3 +30,8 @@ class PaymentViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, mixins.Up
         payments = self.queryset.filter(credit_id=credit_id) 
         serializer = self.get_serializer(payments, many=True) 
         return Response(serializer.data)
+=======
+from django.shortcuts import render
+
+# Create your views here.
+>>>>>>> 22d8435 (fix: move Payment and Credit models and admins to payments app)
