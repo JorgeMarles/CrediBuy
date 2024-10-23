@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'authtools',
     'rest_framework',
     'products',
-    'users'
+    'users',
+    'payments'
 ]
 
 MIDDLEWARE = [
