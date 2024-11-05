@@ -17,14 +17,24 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
-from products.views import ProductTypeViewSet
+
+from payments.views import CreditCreationView, CreditViewSet, PaymentViewSet
+
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+)
+
 
 router = routers.DefaultRouter()
-router.register(r'product_types', ProductTypeViewSet)
-
+router.register(r'credit', CreditViewSet, basename='credits')
+router.register(r'payments', PaymentViewSet, basename='payment')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls')),
-    path('api/', include(router.urls))
+    path('api/', include(router.urls)),
+    path('api/credits/create/', CreditCreationView.as_view(), name="credit-create"),
+    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 ]
