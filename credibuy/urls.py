@@ -21,6 +21,8 @@ from products.views import ProductTypeViewSet, ProductViewSet
 
 from payments.views import CreditCreationView, CreditViewSet, PaymentViewSet
 
+from users.views import ClientViewSet
+
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
@@ -32,6 +34,7 @@ router.register(r'credit', CreditViewSet, basename='credits')
 router.register(r'payments', PaymentViewSet, basename='payment')
 router.register(r'product-type', ProductTypeViewSet, basename='producttype')
 router.register(r'product', ProductViewSet, basename='product')
+router.register(r'clients', ClientViewSet, basename='client')
 
 urlpatterns = [
     path('admin/', admin.site.urls),

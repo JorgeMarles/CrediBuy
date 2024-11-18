@@ -12,7 +12,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('products', '0001_initial'),
-        ('users', '0003_client_id_alter_client_email'),
+        ('users', '0001_initial'),
     ]
 
     operations = [
