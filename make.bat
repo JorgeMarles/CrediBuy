@@ -20,7 +20,8 @@ ruff format .
 goto end
 
 :test
-pytohn manage.py test
+coverage run manage.py test
+coverage report -m
 goto end
 
 :run
@@ -28,7 +29,7 @@ python manage.py runserver
 goto end
 
 :migrate
-python manage.py makemigrations products
+python manage.py makemigrations
 python manage.py migrate
 goto end
 
