@@ -1,5 +1,3 @@
-from rest_framework.filters import OrderingFilter
-
 # Create your views here.
 from .models import ProductType, Product
 from rest_framework import viewsets
@@ -20,8 +18,7 @@ class ProductViewSet(viewsets.ModelViewSet):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
     filter_backends = [DjangoFilterBackend, OrderingFilter, SearchFilter]
-    ordering_fields = ['name']
+    ordering_fields = ['name', 'price', 'product_type__name']
     ordering = ['name', 'price', 'product_type__name']
     search_fields = ['name', 'product_type__name']
     filterset_fields = ['name', 'price', 'product_type__name']
-

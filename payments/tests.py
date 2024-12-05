@@ -100,7 +100,7 @@ class CreditAndPaymentTests(APITestCase):
         payment_value = payment.value
         url = reverse("payment-detail", kwargs={'pk': payment.id})
         data = {
-            "status": "completed"
+            "paid": True
         }
         response = self.client.patch(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -112,7 +112,7 @@ class CreditAndPaymentTests(APITestCase):
         for payment in payments:
             url = reverse("payment-detail", kwargs={'pk': payment.id})
             data = {
-                "status": "completed"
+                "paid": True
             }
             response = self.client.patch(url, data, format='json')
             self.assertEqual(response.status_code, status.HTTP_200_OK)
