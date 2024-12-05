@@ -5,6 +5,10 @@ from users.models import Client
 from products.models import Product
 from decimal import Decimal
 
+from typing import Literal
+
+from datetime import date
+
 DELAYED_INTEREST_RATE = Decimal('0.12')
 INTEREST_RATE = Decimal('0.08')
 
@@ -30,5 +34,12 @@ class Payment(models.Model):
     credit = models.ForeignKey(Credit, on_delete=models.SET_NULL, null=True)
     value = models.DecimalField(max_digits=25, decimal_places=10, validators=[MinValueValidator(Decimal('0.01'))])
     due_to = models.DateField()
-    status = models.CharField(max_length=30, choices=STATUSES)
+    paid = models.BooleanField(default=False)
+    #status = models.CharField(max_length=30, choices=STATUSES)
     value_delayed = models.DecimalField(max_digits=25, decimal_places=10, validators=[MinValueValidator(Decimal('0.01'))])
+
+    @property
+    def status(self) -> Literal["pending","completed","delayed"]:
+        if self.paid:
+            return "completed"
+        return "delayed" if self.due_to < date.today() else "pending"

@@ -41,7 +41,7 @@ class CreditCreationSerializer(serializers.ModelSerializer):
                 credit=credit,
                 value=payment_value,
                 due_to=due_to,
-                status="pending",
+                paid=False,
                 value_delayed=delayed_value,
             )
         return credit
@@ -50,15 +50,26 @@ class CreditCreationSerializer(serializers.ModelSerializer):
 class PaymentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Payment
-        fields = ("id", "value", "due_to", "value_delayed", "status", "credit")
+        fields = ("id", "value", "due_to", "value_delayed", "status", "credit", "paid")
 
     def update(self, instance: Payment, validated_data):
         credit = instance.credit
-        if validated_data["status"] == "completed":
-            if instance.status != 'completed':
+        if validated_data["paid"]:
+            if not instance.paid:
                 credit.debt -= instance.value
                 if credit.debt < Decimal('0.00001') :
+                    credit.debt = Decimal('0')
                     credit.status = 'completed'
+        else:
+            if instance.paid:
+                if credit.status == 'completed':
+                    credit.status = 'active'
+                credit.debt += instance.value
+        #don't update anything besides status
+        validated_data['credit'] = instance.credit
+        validated_data['due_to'] = instance.due_to
+        validated_data['value'] = instance.value
+        validated_data['value_delayed'] = instance.value_delayed
         credit.save()
         return super().update(instance, validated_data)
 
