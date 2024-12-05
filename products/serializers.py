@@ -11,6 +11,7 @@ class ProductTypeSerializer(serializers.HyperlinkedModelSerializer):
         )
 
 class ProductSerializer(serializers.ModelSerializer):
+    product_type_name = serializers.SlugRelatedField(source = "product_type", read_only = True, slug_field = "name")
     class Meta:
         model = Product
         fields = (
@@ -19,5 +20,6 @@ class ProductSerializer(serializers.ModelSerializer):
             "description",
             "price",
             "stock",
-            "product_type"
+            "product_type",
+            "product_type_name"
         )
