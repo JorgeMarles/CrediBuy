@@ -9,7 +9,10 @@ DEBUG = config("DEBUG")
 
 ALLOWED_HOSTS = config("DJANGO_ALLOWED_HOSTS").split()
 
+CORS_ALLOWED_ORIGINS = config("DJANGO_ALLOWED_HOSTS").split()
+
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",

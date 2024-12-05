@@ -25,7 +25,7 @@ coverage report -m
 goto end
 
 :run
-python manage.py runserver
+python manage.py runserver --settings=credibuy.settings.local
 goto end
 
 :migrate
