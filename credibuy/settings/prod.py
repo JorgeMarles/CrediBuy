@@ -9,7 +9,7 @@ DEBUG = config("DEBUG")
 
 ALLOWED_HOSTS = config("DJANGO_ALLOWED_HOSTS").split()
 
-CORS_ALLOWED_ORIGINS = config("DJANGO_ALLOWED_HOSTS").split()
+CORS_ALLOWED_ORIGINS = config("CORS_ALLOWED_ORIGINS").split()
 
 MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",
